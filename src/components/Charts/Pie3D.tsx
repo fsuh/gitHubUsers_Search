@@ -2,14 +2,15 @@ import ComponentFC from "react-fusioncharts";
 import FusionCharts from "fusioncharts";
 import ChartType from "fusioncharts/fusioncharts.charts";
 import FusionTheme from "fusioncharts/themes/fusioncharts.theme.fusion";
+import { IChartData } from "../../models/User";
 
 ComponentFC.fcRoot(FusionCharts, ChartType, FusionTheme);
 
-const Pie3D = ({ data }) => {
+const Pie3D = ({ data }: { data: IChartData[] }) => {
 	const chartConfigs = {
 		type: "pie3d",
-		width: "400",
-		height: "400",
+		width: "100%",
+		height: "350",
 		dataFormat: "json",
 		dataSource: {
 			chart: {
@@ -21,7 +22,11 @@ const Pie3D = ({ data }) => {
 			data,
 		},
 	};
-	return <ComponentFC {...chartConfigs} />;
+	return (
+		<div className="rounded">
+			<ComponentFC {...chartConfigs} />;
+		</div>
+	);
 };
 
 export default Pie3D;

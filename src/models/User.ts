@@ -166,3 +166,8 @@ export interface IGitHubFollowers {
 	type: string;
 	site_admin: boolean;
 }
+
+export interface IChartData {
+	label: string;
+	value: string;
+}
