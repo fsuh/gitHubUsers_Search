@@ -45,7 +45,7 @@ const Info = () => {
 					return (
 						<article
 							key={id}
-							className="bg-white grid grid-flow-row grid-cols-[auto_1fr] gap-x-12 py-4 px-8 items-center rounded"
+							className="bg-white grid grid-flow-row grid-cols-2 gap-x-12 py-4 px-8 items-center rounded"
 						>
 							<span
 								className={`w-12 h-12 grid place-items-center rounded-full`}

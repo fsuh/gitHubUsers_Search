@@ -7,6 +7,9 @@ export default {
 			custom: "992px",
 			"custom-small": "800px",
 			custom_big: "1200px",
+			sm: "640px",
+			md: "768px",
+			lg: "1024px",
 		},
 	},
 	// eslint-disable-next-line no-undef
