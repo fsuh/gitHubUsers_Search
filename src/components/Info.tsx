@@ -1,9 +1,12 @@
 import { GoRepo, GoFileCode } from "react-icons/go";
 import { FiUsers, FiUserPlus } from "react-icons/fi";
 import { useGitHubContext } from "../context/context";
+// import { useLoaderData } from "react-router-dom";
+// import { IGitHubUser } from "../models/User";
 
 const Info = () => {
 	const { gitHubUser } = useGitHubContext();
+	//const { gitHubUser } = useLoaderData() as { gitHubUser: IGitHubUser };
 	const { public_repos, followers, following, public_gists } = gitHubUser;
 
 	const items = [

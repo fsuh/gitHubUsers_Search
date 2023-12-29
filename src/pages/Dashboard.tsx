@@ -1,44 +1,73 @@
-import { Params, useLoaderData } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import { Info, Repos, User, Search, Navbar } from "../components";
-import customFetch from "../utils";
-import { QueryClient, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useCheckRequests } from "../ReactQueryHooks";
+import { QueryClient, useQuery } from "@tanstack/react-query";
+import { useGitHubContext } from "../context/context";
+import loadingImg from "../assets/ZKZx.gif";
+//import customFetch from "../utils";
+//import { toast } from "react-toastify";
+//import { useGitHubContext } from "../context/context";
+//import { searchGithubUser } from "../ReactQueryFxns";
 
-const url = "/users";
+// const searchGithubUser = (user: string) => {
+// 	if (!user) {
+// 		toast.error("Specify a githubUser");
+// 	}
+// 	return {
+// 		queryKey: ["githubuser", user],
+// 		queryFn: async () => {
+// 			try {
+// 				const response = await customFetch(`/users/${user}`);
+// 				if (!response) {
+// 					toast.error(`there is no user with the username ${user}`);
+// 				}
+// 				return response.data;
+// 			} catch (error) {
+// 				toast.error(`An error occured while searching for user ${user}`);
+// 			}
+// 		},
+// 	};
+// };
 
-const searchGithubUser = (user: string) => {
-	return {
-		queryKey: ["githubuser", user],
-		queryFn: async () => {
-			const response = await customFetch(`/users/${user}`);
-			return response.data;
-		},
-	};
+// export const loader =
+// 	(queryClient: QueryClient) =>
+// 	async ({ request }: { request: Request }) => {
+// 		const url = new URL(request.url);
+// 		const user = url.searchParams.get("login") || "john-smilga";
+// 		const response = await queryClient.ensureQueryData(searchGithubUser(user));
+// 		// console.log("the respons is", response);
+// 		return { user, gitHubUser: response };
+// 	};
+
+export const loader = async () => {
+	return "something";
 };
 
-export const loader =
-	(queryClient: QueryClient) =>
-	async ({ request }: { request: Request }) => {
-		const url = new URL(request.url);
-		const user = url.searchParams.get("login") || "";
-		const response = await queryClient.ensureQueryData(searchGithubUser(user));
-
-		console.log("the respons is", response);
-		return "something";
-	};
-
-// export const loader = async ({ request }: { request: Request }) => {
-// 	const params = new URL(request.url).searchParams;
-// 	const search = params.get("search");
-// 	console.log(params);
-// 	return "something";
-// };
 const Dashboard = () => {
-	const { user } = useLoaderData();
-	console.log("the user is", user);
+	//const { user } = useLoaderData() as { user: string };
+	// const { data: githubUser } = useQuery(searchGithubUser(user));
+	// const { setGitHubUser } = useGitHubContext();
+	// setGitHubUser(githubUser);
+	const { data } = useLoaderData();
+	console.log(data);
+
+	const { isLoading } = useGitHubContext();
+	if (isLoading) {
+		return (
+			<main className="pb-8">
+				<Navbar />
+				<Search />
+				<img
+					src={loadingImg}
+					alt="loading spinner"
+					className="w-80 h-80 block mx-auto mt-40 bg-transparent"
+				/>
+			</main>
+		);
+	}
+
 	return (
-		<main>
-			{/* <Navbar /> */}
+		<main className="pb-8">
+			<Navbar />
 			<Search />
 			<Info />
 			<User />

@@ -17,6 +17,7 @@ const router = createBrowserRouter([
 	{
 		index: true,
 		element: <Dashboard />,
+		//loader: dashboardLoader(queryClient),
 		loader: dashboardLoader,
 		errorElement: <Error />,
 	},

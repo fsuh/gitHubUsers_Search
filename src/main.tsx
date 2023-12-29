@@ -9,11 +9,11 @@ import GitHubProvider from "./context/context";
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<React.StrictMode>
 		<GitHubProvider>
+			<App />
 			<ToastContainer
 				position="top-center"
 				autoClose={2000}
 			/>
-			<App />
 		</GitHubProvider>
 	</React.StrictMode>
 );

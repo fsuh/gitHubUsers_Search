@@ -4,13 +4,13 @@ import mockFollowers from "./mockData/mockFollowers";
 import mockUsers from "./mockData/mockUsers";
 import mockRepos from "./mockData/mockRepos";
 import axios from "axios";
-import { IGitHubUser, IGitHubFollowers, IGitHubRepo } from "../models/User";
+import { IGitHubUser, IGitHubFollowers } from "../models/User";
 import customFetch from "../utils";
 import { toast } from "react-toastify";
 
 export type ContextProps = {
 	gitHubUser: IGitHubUser;
-	setGitHubUser?: React.Dispatch<React.SetStateAction<IGitHubUser>>;
+	setGitHubUser: React.Dispatch<React.SetStateAction<IGitHubUser>>;
 	repos: unknown[];
 	//setRepos?: React.Dispatch<React.SetStateAction<unknown[]>>;
 	followers: IGitHubFollowers[];
@@ -19,6 +19,8 @@ export type ContextProps = {
 	//setRequests?: React.Dispatch<React.SetStateAction<number>>;
 	error: IError;
 	searchGithubUser: (user: string) => Promise<void>;
+	isLoading: boolean;
+	//setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 interface IError {
@@ -26,16 +28,6 @@ interface IError {
 	msg: string;
 }
 
-const baseUrl = "https://api.github.com";
-
-// export const GitHubContext = createContext<Partial<ContextProps>>({
-// 	gitHubUser: undefined,
-// 	setGitHubUser: () => {},
-// 	repos: undefined,
-// 	setRepos: () => {},
-// 	followers: undefined,
-// 	setFollowers: () => {},
-// });
 export const GitHubContext = createContext<ContextProps | undefined>(undefined);
 
 export const useGitHubContext = () => {
@@ -57,17 +49,34 @@ const GitHubProvider: React.FC<ContextProviderProps> = ({ children }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState({ show: false, msg: "" });
 	const searchGithubUser = async (user: string) => {
-		// toggleError
-		//setLoading(true)
+		toggleError();
+		setIsLoading(true);
 		const response = await customFetch(`/users/${user}`).catch((error) =>
 			console.error(error)
 		);
-		console.log(response);
 		if (response) {
 			setGitHubUser(response.data);
+			const { followers_url, repos_url } = response.data;
+			await Promise.allSettled([
+				axios(`${repos_url}?per_page=100`),
+				axios(`${followers_url}?per_page=100`),
+			])
+				.then((results) => {
+					const [repos, followers] = results;
+					const status = "fulfilled";
+					if (repos.status === status) {
+						setRepos(repos.value.data);
+					}
+					if (followers.status === status) {
+						setFollowers(followers.value.data);
+					}
+				})
+				.catch((error) => toast.error(`${error}`));
 		} else {
 			toggleError(true, `there is no user with the username ${user}`);
 		}
+		checkRequests();
+		setIsLoading(false);
 	};
 	// check rate
 	const checkRequests = async () => {
@@ -99,6 +108,8 @@ const GitHubProvider: React.FC<ContextProviderProps> = ({ children }) => {
 		requests,
 		error,
 		searchGithubUser,
+		isLoading,
+		// setSearchUser,
 	};
 	return (
 		<GitHubContext.Provider value={gitHubValue}>

@@ -5,8 +5,7 @@ import { useGitHubContext } from "../context/context";
 
 const Search = () => {
 	const [user, setUser] = useState("");
-	const { requests, error, setGitHubUser, searchGithubUser } =
-		useGitHubContext();
+	const { requests, error, searchGithubUser, isLoading } = useGitHubContext();
 	const navigation = useNavigation();
 	const isSubmitting = navigation.state === "submitting";
 
@@ -34,10 +33,11 @@ const Search = () => {
 							name="login"
 							placeholder="enter github user"
 							value={user}
+							required
 							onChange={(e) => setUser(e.target.value)}
 							className="text-gray-300 text-xl custom-small:text-sm py-1 px-2 border-transparent outline-gray-900 tracking-widest capitalize rounded"
 						/>
-						{requests > 0 && (
+						{requests > 0 && !isLoading && (
 							<button
 								type="submit"
 								className="text-xl custom-small:text-sm rounded-md border-transparent py-1 px-2 capitalize tracking-widest bg-cyan-600 text-white cursor-pointer hover:bg-cyan-400 hover:text-green-950 transition duration-300 ease-linear
@@ -45,7 +45,7 @@ const Search = () => {
 							"
 								disabled={isSubmitting}
 							>
-								{isSubmitting ? "searching..." : "search"}
+								{isSubmitting ? "wait" : "search"}
 							</button>
 						)}
 					</div>

@@ -1,7 +1,11 @@
-import { useGitHubContext } from "../context/context";
+//import { useGitHubContext } from "../context/context";
 import { MdBusiness, MdLocationOn, MdLink } from "react-icons/md";
+import { useGitHubContext } from "../context/context";
+// import { useLoaderData } from "react-router-dom";
+// import { IGitHubUser } from "../models/User";
 const Card = () => {
 	const { gitHubUser } = useGitHubContext();
+	//const { gitHubUser } = useLoaderData() as { gitHubUser: IGitHubUser };
 	const {
 		avatar_url,
 		html_url,
