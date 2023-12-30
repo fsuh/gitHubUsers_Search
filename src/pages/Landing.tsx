@@ -1,36 +1,8 @@
 import loginImg from "../assets/signUp.svg";
-import { Link } from "react-router-dom";
-//import { useAuthState } from "react-firebase-hooks/auth";
-//import { useNavigate } from "react-router-dom";
-//import { auth, handleLogin, handleRegistration } from "../auth/firebase";
-//import { useState } from "react";
-//import { IUser } from "../models/User";
+import { useAuth0 } from "@auth0/auth0-react";
 
-// const initialState: IUser = {
-// 	name: "",
-// 	email: "",
-// 	password: "",
-// };
 const Landing = () => {
-	//const [users, setUsers] = useState(initialState);
-	// const [user, loading, error] = useAuthState(auth);
-
-	// if (loading) {
-	// 	return (
-	// 		<div>
-	// 			<p>Initalising User ...</p>
-	// 		</div>
-	// 	);
-	// }
-	// if (error) {
-	// 	console.error(error);
-	// return (
-	// 	<div>
-	// 		<p>Error: {error}</p>
-	// 	</div>
-	// );
-	//}
-
+	const { loginWithRedirect } = useAuth0();
 	return (
 		<section className="grid min-h-[100vh] place-items-center px-8">
 			<div className="block w-[90vw] max-w-2xl text-center">
@@ -40,15 +12,14 @@ const Landing = () => {
 					className="mb-8 w-full block"
 				/>
 				<h1 className="mb-6 text-5xl sm:text-6xl tracking-widest capitalize leading-5 sm:leading-4 font-sans">
-					github user
+					Fsuh github users
 				</h1>
-				<Link
-					to="/auth"
+				<button
 					className="btn btn-primary mt-4"
+					onClick={() => loginWithRedirect()}
 				>
-					{" "}
 					Log In/Sign Up
-				</Link>
+				</button>
 			</div>
 		</section>
 	);

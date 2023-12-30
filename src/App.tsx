@@ -1,5 +1,11 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Dashboard, Error, Landing, Auth } from "./pages";
+import {
+	AuthWrapper,
+	Dashboard,
+	Error,
+	Landing,
+	ProtectedRoute,
+} from "./pages";
 import { loader as dashboardLoader } from "./pages/Dashboard";
 //import { Auth0Provider } from "@auth0/auth0-react";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
@@ -16,7 +22,11 @@ const queryClient = new QueryClient({
 const router = createBrowserRouter([
 	{
 		index: true,
-		element: <Dashboard />,
+		element: (
+			<ProtectedRoute>
+				<Dashboard />
+			</ProtectedRoute>
+		),
 		//loader: dashboardLoader(queryClient),
 		loader: dashboardLoader,
 		errorElement: <Error />,
@@ -26,16 +36,13 @@ const router = createBrowserRouter([
 		element: <Landing />,
 		errorElement: <Error />,
 	},
-	{
-		path: "/auth",
-		element: <Auth />,
-		errorElement: <Error />,
-	},
 ]);
 const App = () => {
 	return (
 		<QueryClientProvider client={queryClient}>
-			<RouterProvider router={router} />
+			<AuthWrapper>
+				<RouterProvider router={router} />
+			</AuthWrapper>
 			<ReactQueryDevtools initialIsOpen={false} />
 		</QueryClientProvider>
 	);
