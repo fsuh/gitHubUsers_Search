@@ -13,6 +13,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 			domain={import.meta.env.VITE_AUTHO_DOMAIN}
 			clientId={import.meta.env.VITE_AUTHO_CLIENT_ID}
 			authorizationParams={{ redirect_uri: window.location.origin }}
+			cacheLocation="localstorage"
 		>
 			<GitHubProvider>
 				<App />
