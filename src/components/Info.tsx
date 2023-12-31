@@ -1,4 +1,4 @@
-import { GoRepo, GoFileCode } from "react-icons/go";
+import { FaFolder, FaCode } from "react-icons/fa";
 import { FiUsers, FiUserPlus } from "react-icons/fi";
 import { useGitHubContext } from "../context/context";
 // import { useLoaderData } from "react-router-dom";
@@ -12,7 +12,7 @@ const Info = () => {
 	const items = [
 		{
 			id: 1,
-			icon: <GoRepo className="text-2xl" />,
+			icon: <FaFolder className="text-2xl" />,
 			label: "repos",
 			value: public_repos,
 			color: "pink",
@@ -33,7 +33,7 @@ const Info = () => {
 		},
 		{
 			id: 4,
-			icon: <GoFileCode className="text-2xl" />,
+			icon: <FaCode className="text-2xl" />,
 			label: "gists",
 			value: public_gists,
 			color: "yellow",
