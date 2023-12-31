@@ -7,17 +7,10 @@ import {
 	ProtectedRoute,
 } from "./pages";
 import { loader as dashboardLoader } from "./pages/Dashboard";
-//import { Auth0Provider } from "@auth0/auth0-react";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
-const queryClient = new QueryClient({
-	defaultOptions: {
-		queries: {
-			staleTime: 1000 * 60 * 5,
-		},
-	},
-});
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
 	{
