@@ -30,6 +30,8 @@ const Card = () => {
 				</div>
 				<a
 					href={html_url}
+					target="_blank"
+					rel="noopener noreferrer"
 					className="text-blue-500 border-2 border-blue-500 border-solid py-1 px-3 rounded-2xl capitalize tracking-widest transition-all duration-300 ease-linear cursor-pointer hover:text-white hover:bg-blue-500 text-center"
 				>
 					follow
@@ -52,7 +54,9 @@ const Card = () => {
 					{location || "N/A"}
 				</p>
 				<a
-					href={`https://${blog}`}
+					href={blog}
+					target="_blank"
+					rel="noopener noreferrer"
 					className="mb-2 flex items-center text-blue-500 transition-all duration-300 ease-linear hover:text-blue-300"
 				>
 					<MdLink className="mr-2 text-xl text-gray-500" />
