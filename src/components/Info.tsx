@@ -48,7 +48,7 @@ const Info = () => {
 					return (
 						<article
 							key={id}
-							className="bg-white grid grid-flow-row grid-cols-2 gap-x-12 py-4 px-8 items-center rounded"
+							className="bg-white grid grid-flow-row  grid-rows-1 grid-cols-[auto_auto] gap-x-12 md:gap-x-3 py-4 px-8 md:px-4 items-center rounded"
 						>
 							<span
 								className={`w-12 h-12 grid place-items-center rounded-full`}
@@ -57,10 +57,10 @@ const Info = () => {
 								{icon}
 							</span>
 							<div>
-								<h3 className="mb-0 tracking-normal text-xl text-black font-bold">
+								<h3 className="mb-0 tracking-normal text-xl text-black font-bold text-center">
 									{value}
 								</h3>
-								<p className="mb-0 capitalize">{label}</p>
+								<p className="mb-0 capitalize last:text-center">{label}</p>
 							</div>
 						</article>
 					);

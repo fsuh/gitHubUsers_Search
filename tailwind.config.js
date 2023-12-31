@@ -10,6 +10,7 @@ export default {
 			sm: "640px",
 			md: "768px",
 			lg: "1024px",
+			mobile: "350px",
 		},
 	},
 	// eslint-disable-next-line no-undef

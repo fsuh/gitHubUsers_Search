@@ -22,11 +22,7 @@ const Pie3D = ({ data }: { data: IChartData[] }) => {
 			data,
 		},
 	};
-	return (
-		<div className="rounded">
-			<ComponentFC {...chartConfigs} />;
-		</div>
-	);
+	return <ComponentFC {...chartConfigs} />;
 };
 
 export default Pie3D;

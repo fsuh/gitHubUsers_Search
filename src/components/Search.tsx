@@ -17,7 +17,7 @@ const Search = () => {
 	};
 	return (
 		<section className="py-4 relative">
-			<div className="w-[90vw] mx-auto max-w-[1170px] custom:w-[95vw] relative grid gap-y-4 gap-x-7 md:grid-cols-2 md:items-center ">
+			<div className="w-[90vw] mx-auto  max-w-[1170px] custom:w-[95vw] md:w-[85vw] relative grid gap-y-4 gap-x-7 md:grid-cols-[auto_auto] md:items-center ">
 				{error.show && (
 					<article className="absolute w-[90vw] top-0 left-0 translate-y-[-100%]">
 						<p className="capitalize text-red-500 tracking-widest">
